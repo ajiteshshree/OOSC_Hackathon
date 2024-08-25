@@ -21,8 +21,10 @@ def scrape_website(url):
 # Function to save webpage content and generate questions
 def save_content_and_generate_questions_separately(url, content_filepath, questions_filepath, api_key):
     response = requests.get(url)
-    content = response.text
+    soup = BeautifulSoup(response.content, 'html.parser')
 
+# Extract all text from the webpage
+    content = soup.get_text()
     # Save the content to a JSON file
     with open(content_filepath, 'w') as file:
         json.dump({'url': url, 'content': content}, file)
@@ -41,7 +43,6 @@ def generate_questions(content, api_key, n=10):
         'prompt': f"Generate {n} concise questions under 80 characters from the following content:\n{content}\n",
         'max_tokens': 100  # Adjust if necessary
     }
-    print(content)
     response = model.generate_content(f"Generate {n} concise questions under 80 characters from the following content:\n{content}\n")
     # response.raise_for_status()  # Ensure we notice bad responses
 
