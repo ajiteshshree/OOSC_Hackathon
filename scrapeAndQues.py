@@ -66,6 +66,7 @@ for i, link in enumerate(links):
     try:
         content_filepath = f'data/page_content_{i}.json'
         questions_filepath = f'data/page_questions_{i}.json'
+        link = "https://r.jina.ai/" + link
         save_content_and_generate_questions_separately(link, content_filepath, questions_filepath, api_key)
     except Exception as e:
         print(f"{i} Error processing {link}: {e}")
