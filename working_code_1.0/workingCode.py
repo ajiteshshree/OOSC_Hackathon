@@ -7,7 +7,7 @@ from urllib.parse import urljoin
 from sentence_transformers import SentenceTransformer, util
 
 # Configure API and models
-api_key = "AIzaSyCotfFeT5P1Rbr6n9IPuEgv3g10Ls5n91A"
+api_key = "YOUR_API_KEY_FOR_GEMINI" #for reference can use: AIzaSyCotfFeT5P1Rbr6n9IPuEgv3g10Ls5n91A
 genai.configure(api_key=api_key)
 
 model_gemini = genai.GenerativeModel('gemini-1.5-flash')
