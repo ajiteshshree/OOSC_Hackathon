@@ -3,10 +3,11 @@ from bs4 import BeautifulSoup
 import json
 import google.generativeai as genai
 import os
+from urllib.parse import urljoin
 
 
 api_key = "AIzaSyCotfFeT5P1Rbr6n9IPuEgv3g10Ls5n91A"
-website_url = "https://www.wsj.com/"
+website_url = "https://www.wikipedia.org/"
 genai.configure(api_key=api_key)
 
 model = genai.GenerativeModel('gemini-1.5-flash')
@@ -15,7 +16,7 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 def scrape_website(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-    links = [a['href'] for a in soup.find_all('a', href=True)]
+    links = [urljoin(url, a['href']) for a in soup.find_all('a', href=True)]
     return links
 
 # Function to save webpage content and generate questions
@@ -52,7 +53,7 @@ def generate_questions(content, api_key, n=10):
     # text = result['choices'][0]['text'].strip()
     # questions = [q.strip() for q in text.split('\n') if q.strip()]
     
-    return questions
+    return result
 
 # Example usage
 
@@ -61,11 +62,11 @@ links = scrape_website(website_url)
 
 # For each link, save the content and generate questions in separate files
 for i, link in enumerate(links):
-    if i>10:
+    if i>5:
         break
     try:
-        content_filepath = f'data/page_content_{i}.json'
-        questions_filepath = f'data/page_questions_{i}.json'
+        content_filepath = f'data/content/page_content_{i}.json'
+        questions_filepath = f'data/questions/page_questions_{i}.json'
         link = "https://r.jina.ai/" + link
         save_content_and_generate_questions_separately(link, content_filepath, questions_filepath, api_key)
     except Exception as e:
