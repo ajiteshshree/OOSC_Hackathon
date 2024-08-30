@@ -1,5 +1,9 @@
 # Web Scraper & Content Analyzer
 
+<b> Problem Statement</b> <a href = "https://docs.google.com/document/d/1GaQza95lxQJHXrCtrdntavKL3a0_Bg_Kvj3QmZuDNWA/edit?usp=sharing">here.</a>
+
+## Solution 
+
 This Python script scrapes webpages, extracts content, generates relevant questions, and finds links with similar content. It processes multiple pages from a given website (e.g., "https://www.wsj.com/") and stores the results in structured JSON files.
 
 ## Features
